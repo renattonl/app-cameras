@@ -4,7 +4,6 @@ const app = express();
 
 const test = () => {
   const fs = require('fs');
-  // const path = require('path');
   const directories = fs.readdirSync( process.env.STORAGE_PATH_LOCAL );
   return directories;
 }
@@ -15,6 +14,8 @@ app.get('/', (req, res) => {
     directories: test(),
   });
 });
+
+app.use((req, res) => res.status(404).json({ error: true, message: 'Page not found'}));
 
 app.listen(PORT, () => {
   console.log(`Runnung in port: http://localhost:${PORT}`);
